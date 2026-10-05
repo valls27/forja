@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Forja · Entrenamientos</title><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#0e0e10"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-192.png"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes">
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Forja · Entrenamientos</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#0e0e10;--cd:#18181c;--tx:#f2efe8;--mu:#8d8a82;--gd:#d4af37;--ln:#2a2a30;--ok:#4caf7a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
@@ -26,7 +26,7 @@ nav button{flex:1;border:0;background:none;padding:12px 0;color:var(--mu);font-s
 textarea{width:100%;height:100px}svg{width:100%;height:auto}.ts{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);background:var(--gd);color:#111;padding:9px 16px;border-radius:99px;font-weight:700;z-index:20}
 </style></head><body><div id="app"></div><div id="tm"></div><nav id="nv"></nav><div id="md"></div>
 <script>
-const MN={pe:'Pecho',es:'Dorsales',tr:'Trapecio',ho:'Hombro',bi:'Bíceps',tri:'Tríceps',an:'Antebrazo',ab:'Abdomen',lo:'Lumbar',cu:'Cuádriceps',is:'Isquios',gl:'Glúteo',ge:'Gemelos',ad:'Aductores'},EQ={M:'Máquina',P:'Polea',B:'Barra',U:'Mancuernas',C:'Corporal'};
+const MN={pe:'Pecho',es:'Dorsales',tr:'Trapecio',ho:'Hombro',bi:'Bíceps',tri:'Tríceps',an:'Antebrazo',ab:'Abdomen',lo:'Lumbar',cu:'Cuádriceps',is:'Isquios',gl:'Glúteo',ge:'Gemelos',ad:'Aductores'},EQ={M:'Máquina',P:'Polea',B:'Barra',U:'Mancuernas',C:'Corporal',K:'Kettlebell',G:'Banda'};
 const EX=`bp|Press banca|B|pe|tri,ho|Tumbado, baja la barra al pecho y empuja hasta extender codos.
 pbi|Press banca inclinado|B|pe|ho,tri|Banco inclinado, barra a la parte alta del pecho.
 pbd|Press banca declinado|B|pe|tri|Banco declinado, baja la barra a la parte baja del pecho.
@@ -128,6 +128,146 @@ cra|Crunch en máquina|M|ab||Flexiona el tronco contra la resistencia.
 ele|Elevación de piernas colgado|C|ab|an|Colgado, sube las piernas con control.
 rue|Rueda abdominal|C|ab|ho|Rueda hacia delante sin hundir la zona lumbar.
 rus|Giro ruso|U|ab||Gira el tronco a cada lado con una mancuerna.`.split('\n').map(l=>{const[a,b,c,d,e,f]=l.split('|'),p=d?d.split(','):[],s=e?e.split(','):[];return[a,b,p.concat(s).map(x=>MN[x]).join(' · '),f,c,p,s]});
+const NX=`Press banca agarre inverso|B|pe|tri,ho|Agarre supino, más énfasis en la parte alta del pecho.
+Press banca en Smith|M|pe|tri,ho|Barra guiada, baja al pecho y empuja.
+Press inclinado en Smith|M|pe|ho,tri|Banco inclinado con barra guiada.
+Press declinado con mancuernas|U|pe|tri|Banco declinado, trabaja la parte baja del pecho.
+Press declinado en máquina|M|pe|tri|Empuje descendente guiado.
+Press de pecho con mancuernas agarre neutro|U|pe|tri,ho|Palmas enfrentadas y codos pegados.
+Aperturas inclinadas con mancuernas|U|pe|ho|Banco inclinado, abre y cierra con codos flexionados.
+Aperturas en polea baja|P|pe|ho|Sube las asas hacia arriba y adentro.
+Aperturas en polea alta|P|pe|ho|Cierra los brazos hacia abajo y al frente.
+Press de pecho en polea de pie|P|pe|tri,ho|Empuja las asas al frente con el core firme.
+Press de suelo con mancuernas|U|pe|tri|Tumbado en el suelo, recorrido corto.
+Press landmine|B|pe,ho|tri|Empuje inclinado con la barra anclada.
+Flexiones inclinadas|C|pe|tri,ho|Manos elevadas, versión más fácil.
+Flexiones declinadas|C|pe,ho|tri|Pies elevados, más trabajo de pecho alto.
+Flexiones diamante|C|tri|pe|Manos juntas, foco en tríceps.
+Flexiones en pica|C|ho|tri|Cadera alta, empuja la cabeza entre los brazos.
+Fondos en máquina asistida|M|pe,tri|ho|Contrapeso que reduce el peso corporal.
+Pullover en máquina|M|es|pe,tri|Codos contra los cojines, arco hacia abajo.
+Press de pecho con banda|G|pe|tri,ho|Empuja la banda al frente.
+Remo con barra agarre supino|B|es|bi,lo|Agarre supino, más trabajo de bíceps.
+Remo con mancuernas inclinado|U|es|bi,tr|Pecho apoyado en banco inclinado.
+Remo Meadows|B|es|bi,an|Barra anclada, tira a una mano.
+Remo a una mano en polea|P|es|bi|Tira del asa hacia la cadera.
+Remo en polea agarre ancho|P|es,tr|ho,bi|Barra ancha, codos abiertos.
+Remo en Smith|M|es|bi,lo|Barra guiada con torso inclinado.
+Remo con apoyo en pecho|M|es|bi,tr|Pecho apoyado, sin cargar la lumbar.
+Remo unilateral en máquina|M|es|bi|Un brazo cada vez.
+Remo en anillas|C|es|bi|Cuerpo inclinado, tira del pecho hacia las anillas.
+Jalón a una mano|P|es|bi|Tira del asa hacia el hombro.
+Jalón unilateral en máquina|M|es|bi|Brazos independientes.
+Jalón con banda|G|es|bi|Banda anclada arriba, tira hacia el pecho.
+Dominadas agarre neutro|C|es|bi|Palmas enfrentadas, buen rango.
+Dominadas con lastre|C|es|bi,an|Con cinturón de peso.
+Dominadas australianas|C|es|bi|Remo invertido bajo una barra.
+Peso muerto sumo|B|gl,is,cu|es,lo|Piernas abiertas y agarre estrecho.
+Peso muerto con barra hexagonal|B|cu,gl|is,es|Dentro de la barra, torso erguido.
+Peso muerto a una pierna|U|is,gl|lo|Bisagra de cadera sobre una pierna.
+Buenos días|B|is,lo|gl|Bisagra de cadera con la barra en la espalda.
+Rack pull|B|es,tr|gl,lo|Peso muerto desde soportes a la altura de la rodilla.
+Encogimientos con barra|B|tr|an|Sube los hombros con la barra.
+Encogimientos en Smith|M|tr||Barra guiada, pausa arriba.
+Press militar con mancuernas de pie|U|ho|tri,ab|De pie, empuja sin arquear la espalda.
+Press militar en Smith|M|ho|tri|Barra guiada sobre la cabeza.
+Press landmine a una mano|B|ho|tri,pe|Empuje inclinado unilateral.
+Push press|B|ho|tri,cu|Impulso de piernas para empujar la barra.
+Elevaciones laterales tumbado de lado|U|ho||Mayor tensión en la parte baja.
+Elevaciones laterales a una mano en polea|P|ho||Polea baja cruzando el cuerpo.
+Elevaciones frontales con barra|B|ho|pe|Sube la barra al frente hasta el hombro.
+Elevaciones frontales en polea|P|ho|pe|Tensión constante con cuerda.
+Pájaros en polea cruzada|P|ho|tr,es|Cruza las poleas abriendo los brazos.
+Pájaros sentado inclinado|U|ho|tr|Torso apoyado en banco inclinado.
+Remo al mentón con mancuernas|U|ho,tr|bi|Sube las mancuernas pegadas al cuerpo.
+Remo al mentón en polea|P|ho,tr|bi|Barra o cuerda hacia el mentón.
+Elevaciones en Y|U|ho|tr|Tumbado boca abajo, sube los brazos en Y.
+Rotación externa en polea|P|ho||Manguito rotador, codo pegado al cuerpo.
+Rotación externa con mancuerna|U|ho||Tumbado de lado, rota el antebrazo hacia arriba.
+Face pull con banda|G|ho|tr|Tira de la banda hacia la cara.
+Extensión de tríceps a una mano en polea|P|tri||Un brazo cada vez, codo pegado.
+Extensión de tríceps con barra en polea|P|tri||Barra recta o en V hacia abajo.
+Extensión de tríceps inversa en polea|P|tri||Agarre supino hacia abajo.
+Extensión de tríceps tumbado con mancuernas|U|tri||Baja las mancuernas junto a la cabeza.
+Press francés con barra Z|B|tri||Barra Z, más cómoda para las muñecas.
+Press francés en polea|P|tri||Tumbado, tira de la polea alta.
+Extensión sobre la cabeza con mancuerna|U|tri||Una mancuerna con ambas manos detrás de la cabeza.
+Press cerrado con mancuernas|U|tri|pe|Mancuernas juntas, codos pegados.
+Extensión de tríceps en máquina|M|tri||Sentado, empuja hacia abajo.
+Extensión de tríceps con banda|G|tri||Banda anclada arriba, extiende los codos.
+Curl con barra en polea baja|P|bi|an|Tensión constante con barra recta.
+Curl araña|U|bi||Pecho apoyado en banco inclinado.
+Curl Bayesian|P|bi||Polea baja detrás del cuerpo, codo atrás.
+Curl martillo con cuerda|P|bi,an||Agarre neutro con cuerda en polea.
+Curl martillo cruzado|U|bi,an||Sube la mancuerna cruzando el pecho.
+Curl predicador con barra Z|B|bi||Brazos apoyados en el banco predicador.
+Curl predicador con mancuerna|U|bi||Un brazo cada vez.
+Curl 21|B|bi|an|Siete reps abajo, siete arriba y siete completas.
+Curl inverso|B|an|bi|Agarre prono, trabaja el antebrazo.
+Curl de muñeca inverso|U|an||Extiende la muñeca con antebrazos apoyados.
+Curl Zottman|U|bi,an||Sube con palma arriba y baja con palma abajo.
+Curl sentado con mancuernas|U|bi||Sentado, sin balanceo.
+Curl con banda|G|bi||Pisa la banda y flexiona los codos.
+Sentadilla en caja|B|cu,gl|is|Siéntate en un cajón y sube.
+Sentadilla con pausa|B|cu,gl|is,lo|Pausa de dos segundos abajo.
+Sentadilla con barra baja|B|gl,cu|is,lo|Barra más baja, torso más inclinado.
+Sentadilla pendulum|M|cu|gl|Trayectoria en arco guiada.
+Sentadilla con salto|C|cu,gl|ge|Salta explosivamente al subir.
+Sentadilla sissy|C|cu||Inclina el cuerpo hacia atrás flexionando rodillas.
+Sentadilla pistol|C|cu,gl|ab|Sentadilla a una pierna.
+Sentadilla con mancuernas|U|cu,gl|is|Mancuernas a los lados.
+Zancadas inversas|U|cu,gl|is|Paso atrás, baja la rodilla trasera.
+Zancadas laterales|U|ad,gl|cu|Paso al lado flexionando una pierna.
+Zancadas con barra|B|cu,gl|is|Barra en la espalda.
+Prensa a una pierna|M|cu,gl|is|Empuja con una pierna cada vez.
+Extensión de cuádriceps a una pierna|M|cu||Unilateral para corregir diferencias.
+Curl femoral nórdico|C|is||Baja el torso con control, talones anclados.
+Curl femoral con mancuerna|U|is||Tumbado, aprieta la mancuerna entre los pies.
+Curl femoral en polea|P|is||De pie, con tobillera.
+Peso muerto rumano en Smith|M|is,gl|lo|Barra guiada pegada a las piernas.
+Hip thrust a una pierna|C|gl|is|Espalda en banco, sube con una pierna.
+Hip thrust con mancuerna|U|gl|is|Mancuerna sobre la cadera.
+Hip thrust en Smith|M|gl|is|Barra guiada sobre la cadera.
+Patada de glúteo a cuatro apoyos|C|gl|is|Sube la pierna flexionada hacia el techo.
+Abducción en polea|P|gl||Con tobillera, abre la pierna hacia el lado.
+Abducción con banda|G|gl||Banda en rodillas, abre las piernas.
+Hiperextensión inversa|M|gl,is|lo|Sube las piernas con el torso apoyado.
+Aductores en polea|P|ad||Con tobillera, cruza la pierna por delante.
+Puente de glúteo a una pierna|C|gl|is|Tumbado, sube la cadera con una pierna.
+Gemelos en Smith|M|ge||Sube de puntillas con la barra guiada.
+Gemelos a una pierna con mancuerna|U|ge||De puntillas sobre un escalón.
+Gemelos burro|M|ge||Torso inclinado, sube de puntillas.
+Tibial anterior|M|ge||Levanta la punta del pie contra resistencia.
+Crunch|C|ab||Enrolla el tronco hacia las rodillas.
+Crunch inverso|C|ab||Sube la pelvis hacia el pecho.
+Crunch en banco declinado|C|ab||Mayor recorrido inclinado.
+Elevación de piernas tumbado|C|ab||Sube las piernas rectas sin arquear la zona lumbar.
+Elevación de rodillas colgado|C|ab|an|Colgado, sube las rodillas al pecho.
+Elevación de rodillas en silla romana|C|ab||Apoyado en los antebrazos, sube las rodillas.
+Plancha lateral|C|ab||Apoyado de lado, cuerpo recto.|t
+Plancha con toque de hombro|C|ab|ho|Plancha alta tocando el hombro contrario.
+Mountain climbers|C|ab|cu|Lleva las rodillas al pecho alternando.
+Bicicleta abdominal|C|ab||Codo hacia la rodilla contraria.
+Dead bug|C|ab||Tumbado, extiende brazo y pierna contrarios.
+Pallof press|P|ab||Empuja el asa al frente resistiendo el giro.
+Woodchop en polea|P|ab||Gira el tronco tirando en diagonal.
+Abdominales con peso|U|ab||Crunch sujetando una mancuerna.
+Hollow hold|C|ab||Cuerpo en forma de banana.|t
+V-ups|C|ab||Sube piernas y tronco a la vez.
+Flexión lateral con mancuerna|U|ab||Inclina el tronco hacia un lado.
+Superman|C|lo|gl|Tumbado boca abajo, sube brazos y piernas.
+Bird dog|C|lo,ab|gl|A cuatro apoyos, extiende brazo y pierna contrarios.
+Colgado en barra|C|an|es,ho|Cuelga con agarre firme.|t
+Sentadilla isométrica en pared|C|cu|gl|Espalda en la pared, rodillas a 90°.|t
+Paseo del granjero|U|an,tr|ab,gl|Camina con mancuernas pesadas.|t
+Swing con kettlebell|K|gl,is|lo,ho|Bisagra de cadera y lanza la pesa al frente.
+Sentadilla goblet con kettlebell|K|cu,gl|ab|Pesa al pecho, torso erguido.
+Press con kettlebell|K|ho|tri|Empuja la pesa sobre la cabeza.
+Remo con kettlebell|K|es|bi|Torso inclinado, tira de la pesa.
+Peso muerto con kettlebell|K|is,gl|lo|Pesa entre los pies, espalda neutra.
+Turkish get-up|K|ab,ho|gl,cu|Del suelo a de pie con la pesa arriba.
+Power clean|B|gl,is,tr|cu,es,ho|Tira explosivamente de la barra hasta los hombros.
+Thruster|B|cu,ho|gl,tri|Sentadilla frontal y press en un solo movimiento.`.split('\n').map((l,k)=>{const[b,c,d,e,f,t]=l.split('|'),p=d?d.split(','):[],s=e?e.split(','):[];return['n'+String(k+1).padStart(3,'0'),b,p.concat(s).map(x=>MN[x]).join(' · '),f,c,p,s,t||'']});EX.push(...NX);
 const M=d=>`<path d="${d}"/><path d="${d}" transform="translate(60 0) scale(-1 1)"/>`;
 const BS=`<ellipse cx=30 cy=7 rx=5.5 ry=6.5 /><rect x=27 y=12 width=6 height=5 rx=2 /><path d="M18 18Q30 14 42 18L40 36Q38.5 46 37.5 56L22.5 56Q21.5 46 20 36Z"/>`+M('M18 18Q10 19 9 30L8 44L6.5 58L11.5 58L13.5 44L16.5 32Z')+M('M20 56L30 56L29.5 76L28 98L21.5 98L19.5 76Z');
 const BR=[['ho',0,'M19 18Q13 18 10.5 26Q14.5 30 19 27Z',1],['pe',0,'M30 20Q24 19 20 22Q18 27 20 31Q25 34 30 32Z',1],['bi',0,'M11 29Q9.5 36 10.5 43L14 43Q15.5 36 16 30Z',1],['an',0,'M10 44L8.2 56L11 56L13 44Z',1],['ab',0,'M26.5 34h3v5h-3zM30.5 34h3v5h-3zM26.5 40h3v5h-3zM30.5 40h3v5h-3zM26.5 46h3v5h-3zM30.5 46h3v5h-3z'],['ab',0,'M23 36L26 36L26 52L23.5 52Q22.5 44 23 36Z',1],['cu',0,'M21 58L27.5 58L27 76Q24.5 79 21.5 76Q19 67 21 58Z',1],['ad',0,'M27.5 58L30 58L30 72Q28 72 27.5 70Z',1],['ge',0,'M21.5 80Q20.5 88 22 96L27 96Q28 88 27.5 80Z',1],
@@ -196,8 +336,8 @@ let swI=0,bph='';const rs=(f,cb)=>{const im=new Image();im.onload=()=>{const k=M
 const mkEx=(id,n,rp)=>({id,tr:rp,s:Array.from({length:n},(_,k)=>{const l=last(id),p=(l&&(l[k]||l[l.length-1]))||{};return{r:p.r||rp,w:p.w??'',q:p.q??'',d:0}})});
 const chg=A=>{const r=S.R.find(x=>x.id==A.rid);return!!r&&r.ex.map(e=>e.id+':'+e.sets).join()!=A.ex.map(e=>e.id+':'+e.s.length).join()};
 const updR=A=>{const r=S.R.find(x=>x.id==A.rid);if(r)r.ex=A.ex.map(e=>{const o=r.ex.find(x=>x.id==e.id);return{id:e.id,sets:e.s.length,reps:o?o.reps:(+e.s[0].r||10)}})};
-let SW=0,WL=0,WP=0,CSVT='';
-const fmt=s=>Math.floor(s/60)+':'+String(s%60).padStart(2,'0'),isT=id=>id=='pl'||((ex(id)||[])[7]=='t'),TC={'':'var(--mu)',W:'#4aa3df',D:'#a66cdf',F:'#e5675f'},wi=(e,j)=>e.s.slice(0,j).filter(x=>x.t!='W').length,INC={B:2.5,U:2,M:5,P:2.5,C:0},opt=o=>Object.entries(o).map(([k,v])=>`<option value=${k}>${v}</option>`).join('');
+let SW=0,WL=0,WP=0,CSVT='',lim=60;
+const fmt=s=>Math.floor(s/60)+':'+String(s%60).padStart(2,'0'),isT=id=>id=='pl'||((ex(id)||[])[7]=='t'),TC={'':'var(--mu)',W:'#4aa3df',D:'#a66cdf',F:'#e5675f'},wi=(e,j)=>e.s.slice(0,j).filter(x=>x.t!='W').length,INC={B:2.5,U:2,M:5,P:2.5,C:0,K:2,G:0},opt=o=>Object.entries(o).map(([k,v])=>`<option value=${k}>${v}</option>`).join('');
 const CA=(s,j,l)=>{const c=cmp(s,j,l);return c==1?'<b style="color:var(--ok)">▲</b>':c==-1?'<b style="color:#e5675f">▼</b>':c==2?'<b class=gd>＝</b>':'<span></span>'};
 const SG=e=>{const L=lastS(e.id);if(!L||isT(e.id))return null;const l=L.s,top=e.tr||10,wm=Math.max(...l.map(z=>z.w)),ic=INC[(ex(e.id)||[])[4]]??2.5,mr=Math.max(...l.map(z=>z.r));if(l.filter(z=>z.w==wm).every(z=>z.r>=top))return wm>0&&ic?{w:n1(wm+ic),r:Math.max(top-2,1),t:`Llegaste a ${top} reps en todas → sube a ${n1(wm+ic)} kg`}:{w:wm,r:mr+1,t:`Sube a ${mr+1} reps`};return{w:wm,r:top,t:`Mantén ${wm} kg y busca ${top} reps en todas`}};
 const wl=()=>{try{if(S.act&&scr=='w'){if(!WL&&!WP){WP=1;navigator.wakeLock.request('screen').then(l=>{WL=l;WP=0;l.onrelease=()=>{WL=0}}).catch(()=>{WP=0})}}else if(WL){WL.release();WL=0}}catch{}};document.addEventListener('visibilitychange',()=>{if(!document.hidden)wl()});
@@ -222,7 +362,7 @@ function LIB(){const f=EX.filter(e=>(e[1]+e[2]).toLowerCase().includes(q.toLower
 return`<div class=row><button class=g data-a=lback>←</button><h1 style="margin:0;flex:1">Biblioteca</h1><span class=mu>${f.length}</span></div><input data-f=q placeholder="Buscar ejercicio o músculo" value="${esc(q)}" style="margin:10px 0"><button class="g b" data-a=cxn>+ Ejercicio propio</button>
 <div class=chips>${[['','Todo'],...Object.entries(EQ)].map(([k,v])=>`<button class="chip ${fe==k?'on':''}" data-a=fe data-i="${k}">${v}</button>`).join('')}</div>
 <select data-f=fm style="margin-bottom:10px"><option value="">Todos los músculos</option>${Object.entries(MN).map(([k,v])=>`<option value=${k} ${fm==k?'selected':''}>${v}</option>`).join('')}</select>
-${f.map(e=>`<div class=card><div class=row data-a=opn data-i=${e[0]}>${th(e,56)}<div style="flex:1"><b>${e[1]}</b><div class=mu>${EQ[e[4]]} · ${e[2]}</div></div>${pick?`<button class="p sm" data-a=padd data-i=${e[0]}>+</button>`:''}</div>${opn==e[0]?`<div class=row style="margin-top:10px;align-items:flex-start">${S.ph[e[0]]?th(e,150):mm(e,150)}<div><p class=mu style="margin:0 0 8px">${e[3]}</p><label style="display:inline-block;border:1px solid var(--ln);border-radius:10px;padding:5px 9px;font-size:13px;cursor:pointer">📷 Foto<input type=file accept=image/* data-f=ph data-i=${e[0]} hidden></label>${S.ph[e[0]]?` <button class="g sm dg" data-a=phd data-i=${e[0]}>Quitar</button>`:''}${e[0][0]=='x'?`<button class="g sm dg" data-a=cxdel data-i=${e[0]}>Eliminar</button>`:''}</div></div>`:''}</div>`).join('')}`}
+${f.slice(0,lim).map(e=>`<div class=card><div class=row data-a=opn data-i=${e[0]}>${th(e,56)}<div style="flex:1"><b>${e[1]}</b><div class=mu>${EQ[e[4]]} · ${e[2]}</div></div>${pick?`<button class="p sm" data-a=padd data-i=${e[0]}>+</button>`:''}</div>${opn==e[0]?`<div class=row style="margin-top:10px;align-items:flex-start">${S.ph[e[0]]?th(e,150):mm(e,150)}<div><p class=mu style="margin:0 0 8px">${e[3]}</p><label style="display:inline-block;border:1px solid var(--ln);border-radius:10px;padding:5px 9px;font-size:13px;cursor:pointer">📷 Foto<input type=file accept=image/* data-f=ph data-i=${e[0]} hidden></label>${S.ph[e[0]]?` <button class="g sm dg" data-a=phd data-i=${e[0]}>Quitar</button>`:''}${e[0][0]=='x'?`<button class="g sm dg" data-a=cxdel data-i=${e[0]}>Eliminar</button>`:''}</div></div>`:''}</div>`).join('')}${f.length>lim?`<button class="g b" data-a=more>Mostrar más (${f.length-lim})</button>`:''}`}
 function RT(){const r=S.R.find(x=>x.id==rid);return`<div class=row><button class=g data-a=lback>←</button>${rav(r,42)}<input data-f=rn value="${esc(r.n)}"></div><div class=row style="flex-wrap:wrap;margin:10px 0">${PAL.map(c=>`<button data-a=rcol data-c=${c} style="width:30px;height:30px;border-radius:50%;background:${c};padding:0;border:${rc(r)==c?'3px solid var(--tx)':'0'}"></button>`).join('')}</div><div class=chips>${['','💪','🔥','🦵','🏋️','⚡','🎯','🦾'].map(m=>`<button class="chip ${(r.e||'')==m?'on':''}" data-a=remo data-c="${m}">${m||'Inicial'}</button>`).join('')}</div>
 ${r.ex.map((e,i)=>`<div class=card><div class="row sp"><b>${exn(e.id)}</b><span><button class="g sm" data-a=exm data-i=${i} data-d=-1>↑</button><button class="g sm" data-a=exm data-i=${i} data-d=1>↓</button><button class="g sm" data-a=excp data-i=${i}>Copiar</button><button class="g sm dg" data-a=exdel data-i=${i}>✕</button></span></div><div class=row style="margin-top:6px"><input inputmode=numeric data-f=rs data-i=${i} data-k=sets value=${e.sets}><span class=mu>series ×</span><input inputmode=numeric data-f=rs data-i=${i} data-k=reps value=${e.reps}><span class=mu>reps</span></div></div>`).join('')}
 <button class="g b" data-a=lib data-p="${r.id}">+ Añadir ejercicio</button><button class="p b" data-a=start data-i="${r.id}">Empezar</button>`}
@@ -245,7 +385,7 @@ case'wcancel':modal(`<b>¿Descartar el entrenamiento?</b><p class=mu>Se perderá
 case'wfin':{if(D.u==null){if(!A.ex.some(e=>e.s.some(s=>s.d&&+s.r>0))){toast('Marca al menos una serie ✓');return}const td=dk(new Date());modal(`<b>Terminar entrenamiento</b><p class=mu>Fecha y hora (puedes poner un día pasado)</p><div class=row><input type=date id=fdt value="${td}" max="${td}"><input type=time id=ftm value="${new Date().toTimeString().slice(0,5)}"></div><p class=mu>Duración (minutos)</p><input type=number id=fdu inputmode=numeric value="${Math.max(1,Math.round((Date.now()-A.t0)/60000))}">${A.rid&&chg(A)?`<label class=row style="margin:12px 0"><input type=checkbox id=fup style="width:auto" checked> Guardar los cambios en la rutina "${esc(A.name)}"</label>`:''}<button class="p b" data-a=wfin data-u=ok>Guardar entrenamiento</button><button class="g b" data-a=mc>Seguir entrenando</button>`);return}const xs=A.ex.map(e=>({id:e.id,n:e.n,s:e.s.filter(s=>s.d&&+s.r>0).map(s=>({r:+s.r,w:+s.w||0,q:s.q===''||s.q==null?null:+s.q,...(s.t?{t:s.t}:{})}))})).filter(e=>e.s.length);if(!xs.length){toast('Marca al menos una serie ✓');return}
 const prs=xs.filter(e=>{const p=sess(e.id).flatMap(x=>x.s);return p.length&&Math.max(...e.s.map(z=>e1(z.w,z.r)))>Math.max(...p.map(z=>e1(z.w,z.r)))}).map(e=>exn(e.id));
 const t=new Date($('#fdt').value+'T'+($('#ftm').value||'12:00')),du=parseInt($('#fdu').value);if($('#fup')&&$('#fup').checked)updR(A);modal('');S.L.push({id:uid(),d:(isNaN(t)?new Date():t).toISOString(),c:A.c,n:A.name,dur:du>0?du:Math.max(1,Math.round((Date.now()-A.t0)/60000)),ex:xs});S.L.sort((a,b)=>a.d<b.d?-1:1);S.act=null;scr=null;RE=0;T='home';toast(prs.length&&dk(t)==dk(new Date())?'🏆 ¡Nuevo PR en '+prs[0]+'!':'Entrenamiento guardado');break}
-case'lib':pick=D.p||null;scr='lib';q='';break;
+case'lib':pick=D.p||null;scr='lib';q='';lim=60;break;
 case'lback':scr=scr=='lib'&&(pick=='act'||pick=='swap')?'w':scr=='lib'&&pick?'rt':null;pick=null;break;
 case'cd':sd=D.i;cmo=new Date(+D.i.slice(0,4),+D.i.slice(5,7)-1,1);break;case'cprev':cmo=new Date(cmo.getFullYear(),cmo.getMonth()-1,1);break;case'cnext':cmo=new Date(cmo.getFullYear(),cmo.getMonth()+1,1);break;case'ctoday':sd=dk(new Date());cmo=new Date(new Date().getFullYear(),new Date().getMonth(),1);break;case'wxm':{const m=i+d;if(m>=0&&m<A.ex.length)[A.ex[i],A.ex[m]]=[A.ex[m],A.ex[i]];break}case'rmset':if(A.ex[i].s.length>1)A.ex[i].s.pop();break;case'swap':swI=i;pick='swap';scr='lib';q='';break;case'wsave':updR(A);toast('Rutina actualizada');break;case'sty':{const s=A.ex[i].s[+D.j],o=['','W','D','F'];s.t=o[(o.indexOf(s.t||'')+1)%4];break}
 case'sug':{const g=SG(A.ex[i]);if(g)A.ex[i].s.forEach(s=>{if(!s.d&&s.t!='W'){s.w=g.w;s.r=g.r}});break}
@@ -260,7 +400,7 @@ case'csvdl':dl('forja-historial.csv',CSVT);return;
 case'csvi':modal(`<b>Importar CSV</b><p class=mu>Valen las exportaciones de Strong, Hevy y similares (se asume kg). Los ejercicios que no reconozca se crean como ejercicios propios.</p><input type=file accept=".csv,text/csv,text/plain" data-f=csvf><button class="g b" data-a=mc>Cancelar</button>`);return;
 case'rimg':{const r1=R();rcv(r1).toBlob(b=>shareF(new File([b],r1.n+'.png',{type:'image/png'})));return}
 case'rpdf':{const r1=R();shareF(new File([pdfOf(rcv(r1))],r1.n+'.pdf',{type:'application/pdf'}));return}
-case'fe':fe=D.i;break;case'phd':delete S.ph[D.i];break;case'opn':opn=opn==D.i?null:D.i;break;
+case'more':lim+=60;break;case'fe':fe=D.i;lim=60;break;case'phd':delete S.ph[D.i];break;case'opn':opn=opn==D.i?null:D.i;break;
 case'padd':{if(pick=='swap'){A.ex[swI]=mkEx(D.i,A.ex[swI].s.length,10);scr='w';pick=null;break}if(pick=='act')A.ex.push(mkEx(D.i,3,10));else S.R.find(r=>r.id==pick).ex.push({id:D.i,sets:3,reps:10});toast('Añadido');return save()}
 case'rnew':{const r={id:uid(),n:'Nueva rutina',c:PAL[S.R.length%8],ex:[]};S.R.push(r);rid=r.id;scr='rt';break}
 case'edit':rid=D.i;scr='rt';break;
@@ -294,14 +434,13 @@ case'rst':modal(`<b>Restaurar</b><textarea id=ic placeholder="Pega tu copia"></t
 case'rst2':try{S=Object.assign({},DEF,JSON.parse($('#ic').value));S.CX=S.CX||[];S.RT=S.RT||{};S.CX.forEach(c=>{if(!ex(c[0]))EX.push(c)});save();modal('');scr=null;toast('Datos restaurados')}catch{return toast('Copia no válida')}break}
 save();render()}
 document.addEventListener('click',e=>{const t=e.target.closest('[data-t]');if(t){T=t.dataset.t;scr=null;return render()}const a=e.target.closest('[data-a]');if(a){if(a.dataset.a=='opn'&&e.target.closest('[data-a=padd]'))return;act(a.dataset.a,a)}});
-document.addEventListener('input',e=>{const D=e.target.dataset;if(D.f=='q'){q=e.target.value;const p=e.target.selectionStart;render();const n=$('[data-f=q]');n.focus();n.setSelectionRange(p,p)}});
+document.addEventListener('input',e=>{const D=e.target.dataset;if(D.f=='q'){q=e.target.value;lim=60;const p=e.target.selectionStart;render();const n=$('[data-f=q]');n.focus();n.setSelectionRange(p,p)}});
 document.addEventListener('change',e=>{const el=e.target,D=el.dataset,v=el.value,i=+D.i;
-if(D.f=='ph'){const f=el.files[0];if(!f)return;const im=new Image();im.onload=()=>{const k=Math.min(1,480/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=im.width*k;c.height=im.height*k;c.getContext('2d').drawImage(im,0,0,c.width,c.height);S.ph[D.i]=c.toDataURL('image/jpeg',.7);save();render()};im.src=URL.createObjectURL(f);return}if(D.f=='fm'){fm=v;return render()}if(D.f=='wrt'){const id=S.act.ex[i].id;if(v==='')delete S.RT[id];else S.RT[id]=+v;save();return}if(D.f=='csvf'){const f=el.files[0];if(!f)return;const fr=new FileReader();fr.onload=()=>importCSV(String(fr.result));fr.readAsText(f);return}if(D.f=='bph'){const f=el.files[0];if(!f)return;rs(f,u=>{bph=u;$('#bpv').innerHTML='<img src="'+u+'" style="height:44px;border-radius:8px">'});return}if(D.f=='wpos'){const a=S.act.ex,x=a.splice(i,1)[0];a.splice(+v,0,x);save();return render()}if(D.f=='wv'){S.act.ex[i].s[+D.j][D.k]=v}else if(D.f=='wn'){S.act.ex[i].n=v}else if(D.f=='rn'){S.R.find(r=>r.id==rid).n=v}else if(D.f=='rs'){S.R.find(r=>r.id==rid).ex[i][D.k]=Math.max(1,parseInt(v)||1)}
+if(D.f=='ph'){const f=el.files[0];if(!f)return;const im=new Image();im.onload=()=>{const k=Math.min(1,480/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=im.width*k;c.height=im.height*k;c.getContext('2d').drawImage(im,0,0,c.width,c.height);S.ph[D.i]=c.toDataURL('image/jpeg',.7);save();render()};im.src=URL.createObjectURL(f);return}if(D.f=='fm'){fm=v;lim=60;return render()}if(D.f=='wrt'){const id=S.act.ex[i].id;if(v==='')delete S.RT[id];else S.RT[id]=+v;save();return}if(D.f=='csvf'){const f=el.files[0];if(!f)return;const fr=new FileReader();fr.onload=()=>importCSV(String(fr.result));fr.readAsText(f);return}if(D.f=='bph'){const f=el.files[0];if(!f)return;rs(f,u=>{bph=u;$('#bpv').innerHTML='<img src="'+u+'" style="height:44px;border-radius:8px">'});return}if(D.f=='wpos'){const a=S.act.ex,x=a.splice(i,1)[0];a.splice(+v,0,x);save();return render()}if(D.f=='wv'){S.act.ex[i].s[+D.j][D.k]=v}else if(D.f=='wn'){S.act.ex[i].n=v}else if(D.f=='rn'){S.R.find(r=>r.id==rid).n=v}else if(D.f=='rs'){S.R.find(r=>r.id==rid).ex[i][D.k]=Math.max(1,parseInt(v)||1)}
 else if(D.f=='sel'){sel=v;return render()}else if(D.f=='srest'){S.rest=Math.max(0,parseInt(v)||0)}else if(D.f=='srem'){S.rem.on=el.checked?1:0;if(el.checked)try{Notification.requestPermission()}catch{}}else if(D.f=='sremt'){S.rem.t=v}
 save()});
 let ln='';setInterval(()=>{if(!S.rem.on)return;const n=new Date(),h=n.toTimeString().slice(0,5),k=n.toDateString();if(h==S.rem.t&&ln!=k){ln=k;toast('💪 Hora de entrenar');try{new Notification('Forja',{body:'Hora de entrenar'})}catch{}}},20000);
 if(location.hash.startsWith('#r=')){const c=location.hash.slice(3);setTimeout(()=>modal(`<b>Rutina compartida</b><p class=mu>¿Añadirla a tu biblioteca?</p><button class="p b" data-a=imp3 data-x="${c}">Importar</button><button class="g b" data-a=mc>No</button>`),300)}
 document.addEventListener('click',e=>{const b=e.target.closest('[data-a=imp3]');if(b)doImport(b.dataset.x)});
-if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
 render();
 </script></body></html>
